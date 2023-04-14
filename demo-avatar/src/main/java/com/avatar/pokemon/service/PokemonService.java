@@ -25,6 +25,7 @@ public class PokemonService implements PokemonInterface {
 		HttpHeaders headers;
 		HttpEntity<String> entity;
 		ResponseEntity<PokemonListResponse> response;
+		String _url = String.format(baseListUrl, start, limit);
 
 		restTemplate = new RestTemplate();
 		headers = new HttpHeaders();
@@ -32,7 +33,7 @@ public class PokemonService implements PokemonInterface {
 		headers.add("user-agent", "Application");
 		entity = new HttpEntity<>(headers);
 
-		response = restTemplate.exchange(baseListUrl, HttpMethod.GET, entity, PokemonListResponse.class);
+		response = restTemplate.exchange( _url, HttpMethod.GET, entity, PokemonListResponse.class);
 
 		return response.getBody();
 	}
