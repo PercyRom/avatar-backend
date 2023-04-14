@@ -33,46 +33,46 @@ public class PokemonService implements PokemonInterface {
 		headers.add("user-agent", "Application");
 		entity = new HttpEntity<>(headers);
 
-		response = restTemplate.exchange( _url, HttpMethod.GET, entity, PokemonListResponse.class);
+		response = restTemplate.exchange(_url, HttpMethod.GET, entity, PokemonListResponse.class);
 
 		return response.getBody();
 	}
 
 	@Override
 	public PokemonSpecieResponse getPokemonSpecie(String url) {
-		
+
 		RestTemplate restTemplate;
 		HttpHeaders headers;
 		HttpEntity<String> entity;
 		ResponseEntity<PokemonSpecieResponse> response;
-		
+
 		restTemplate = new RestTemplate();
 		headers = new HttpHeaders();
-		
+
 		headers.add("user-agent", "Application");
 		entity = new HttpEntity<>(headers);
-		
+
 		response = restTemplate.exchange(url, HttpMethod.GET, entity, PokemonSpecieResponse.class);
-		
+
 		return response.getBody();
 	}
 
 	@Override
 	public PokemonEvolutionChainResponse getEvolutionChain(String url) {
-				
+
 		RestTemplate restTemplate;
 		HttpHeaders headers;
 		HttpEntity<String> entity;
 		ResponseEntity<PokemonEvolutionChainResponse> response;
-		
+
 		restTemplate = new RestTemplate();
 		headers = new HttpHeaders();
-		
+
 		headers.add("user-agent", "Application");
 		entity = new HttpEntity<>(headers);
-		
+
 		response = restTemplate.exchange(url, HttpMethod.GET, entity, PokemonEvolutionChainResponse.class);
-		
+
 		return response.getBody();
 	}
 
