@@ -1,0 +1,24 @@
+package com.avatar.pokemon.dto;
+
+import java.util.List;
+
+import lombok.Data;
+
+@Data
+public class PokemonEvolutionChainResponse {
+    private Integer id;
+    private Chain chain;
+
+    @Data
+    private static class Chain {
+        private Boolean is_baby;
+        private Specie species;
+        private List<Chain> evolves_to;
+
+        @Data
+        private static class Specie {
+            private String name;
+            private String url;
+        }
+    }
+}

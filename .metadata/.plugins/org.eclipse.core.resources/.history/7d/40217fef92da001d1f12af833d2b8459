@@ -1,0 +1,37 @@
+package com.avatar.pokemon.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.avatar.pokemon.dto.PokemonEvolutionChainResponse;
+import com.avatar.pokemon.dto.PokemonListResponse;
+import com.avatar.pokemon.dto.PokemonSpecieResponse;
+import com.avatar.pokemon.service.PokemonInterface;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/pokemon")
+@RequiredArgsConstructor
+public class PokemonController {
+
+	private PokemonInterface pokemonUseCase;
+
+    @GetMapping("/lista")
+    public PokemonListResponse getListaPokemon(@RequestParam(value = "start") Integer start,
+            @RequestParam(value = "limit") Integer limit) {
+        return pokemonUseCase.getListaPokemon(start, limit);
+    }
+
+    @GetMapping("/specie")
+    public PokemonSpecieResponse getPokemonSpecie(@RequestParam(value = "url") String url) {
+        return pokemonUseCase.getPokemonSpecie(url);
+    }
+
+    @GetMapping("/evolution-chain")
+    public PokemonEvolutionChainResponse getEvolutionChain(@RequestParam(value = "url") String url) {
+        return pokemonUseCase.getEvolutionChain(url);
+    }
+}

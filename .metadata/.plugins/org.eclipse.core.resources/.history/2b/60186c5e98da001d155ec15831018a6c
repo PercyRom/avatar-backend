@@ -1,0 +1,54 @@
+package com.avatar.pokemon.service;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.avatar.pokemon.dto.PokemonEvolutionChainResponse;
+import com.avatar.pokemon.dto.PokemonListResponse;
+import com.avatar.pokemon.dto.PokemonSpecieResponse;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class PokemonService implements PokemonInterface {
+
+	private final String baseListUrl = "https://pokeapi.co/api/v2/pokemon-species?offset=%d&limit=%d";
+
+	@Override
+	public PokemonListResponse getListaPokemon(Integer start, Integer limit) {
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("user-agent", "Application");
+		headers.add("content-type", "application/json");
+
+		HttpEntity<String> entity = new HttpEntity<>(headers);
+
+		ResponseEntity<PokemonListResponse> response = restTemplate.exchange(baseListUrl,
+				HttpMethod.GET, entity, PokemonListResponse.class);
+
+//		PokemonListResponse response = restTemplate.getForObject(String.format(baseListUrl, start, limit), entity,
+//				PokemonListResponse.class);
+		
+		return response.getBody();
+	}
+
+	@Override
+	public PokemonSpecieResponse getPokemonSpecie(String url) {
+		RestTemplate restTemplate = new RestTemplate();
+		PokemonSpecieResponse response = restTemplate.getForObject(url, PokemonSpecieResponse.class);
+		return response;
+	}
+
+	@Override
+	public PokemonEvolutionChainResponse getEvolutionChain(String url) {
+		RestTemplate restTemplate = new RestTemplate();
+		PokemonEvolutionChainResponse response = restTemplate.getForObject(url, PokemonEvolutionChainResponse.class);
+		return response;
+	}
+
+}

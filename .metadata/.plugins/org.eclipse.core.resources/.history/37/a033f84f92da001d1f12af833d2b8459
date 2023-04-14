@@ -1,0 +1,13 @@
+package com.avatar.pokemon.controller;
+
+import com.example.demo.application.restful.dto.PokemonEvolutionChainResponse;
+import com.example.demo.application.restful.dto.PokemonListResponse;
+import com.example.demo.application.restful.dto.PokemonSpecieResponse;
+
+public interface PokemonUseCase {
+    PokemonListResponse getListaPokemon(Integer start, Integer limit);
+
+    PokemonSpecieResponse getPokemonSpecie(String url);
+
+    PokemonEvolutionChainResponse getEvolutionChain(String url);
+}

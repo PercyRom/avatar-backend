@@ -1,0 +1,41 @@
+package com.example.demo.application.restful;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.example.demo.application.restful.dto.PokemonEvolutionChainResponse;
+import com.example.demo.application.restful.dto.PokemonListResponse;
+import com.example.demo.application.restful.dto.PokemonSpecieResponse;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class PokemonService implements PokemonUseCase {
+
+    private final String baseListUrl = "https://pokeapi.co/api/v2/pokemon-species?offset=%d&limit=%d";
+
+    @Override
+    public PokemonListResponse getListaPokemon(Integer start, Integer limit) {
+        RestTemplate restTemplate = new RestTemplate();
+        PokemonListResponse response = restTemplate.getForObject(
+                String.format(baseListUrl, start, limit),
+                PokemonListResponse.class);
+        return response;
+    }
+
+    @Override
+    public PokemonSpecieResponse getPokemonSpecie(String url) {
+        RestTemplate restTemplate = new RestTemplate();
+        PokemonSpecieResponse response = restTemplate.getForObject(url, PokemonSpecieResponse.class);
+        return response;
+    }
+
+    @Override
+    public PokemonEvolutionChainResponse getEvolutionChain(String url) {
+        RestTemplate restTemplate = new RestTemplate();
+        PokemonEvolutionChainResponse response = restTemplate.getForObject(url, PokemonEvolutionChainResponse.class);
+        return response;
+    }
+
+}
